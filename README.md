@@ -1,2 +1,2 @@
 # selenium_tools
-这是一个用于辅助selenium调试的工具
+此工具参考了这篇文章提供的方法：https://www.cnblogs.com/jhao/p/8267929.html
