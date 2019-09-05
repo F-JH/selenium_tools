@@ -29,3 +29,8 @@ selenium webdriver目前只支持firefox和chrome浏览器，其他浏览器我�
     
 #### 文本摘自《深入理解计算机系统》P27
 　此工具相当于Debug工具的反向使用，在本地创建一个socket服务端用于提供session，在服务端打开webdriver，Connect.py用于与服务端通信，获取该测试实例的session信息这样每次跑测试脚本时，就可以重复利用同一个浏览器，而不是重新打开新的浏览器。在编写测试脚本期间，需要大量重复性调试，使用此工具理论上来说应该会节省下很多时间，因为有的电脑打开浏览器真的很慢。经过精确测试，使用该工具重连到浏览器并加载到指定页面只需0.7799181938171387s，而正常打开浏览器需要4.169507741928101s;好吧，看起来是个很鸡肋的东西 (╯°Д°）╯
+  使用方法:  
+    import connect
+    webdriver = connect.webdriver()        //用此工具的webdriver替换selenium的webdriver
+    dr = webdriver.Chrome()
+    dr.get("https://www.baidu.com")
