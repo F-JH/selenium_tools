@@ -1,35 +1,3 @@
-# >>>说明<<<
-# 此工具相当于Debug工具的反向使用，在本地创建一个socket服务端用于提供session，在服务端
-# 打开webdriver，Connect.py用于与服务端通信，获取该测试实例的session信息这样每次跑测
-# 试脚本时，就可以重复利用同一个浏览器，而不是重新打开新的浏览器，理论上来说应该会快多
-# 了，因为有的电脑打开浏览器真的很慢。
-#   经过精确测试，使用该工具重连到浏览器并加载到指定页面只需0.7799181938171387s，而正常
-# 打开浏览器需要4.169507741928101s
-# ( ͡° ͜ʖ ͡°)
-# 好吧，看起来是个很鸡肋的东西 (╯°Д°）╯ 使用Debug工具应该就够了，要是觉得不够爽，那就用
-# 一下这个工具，在某些方面也是可以省一点力气的
-#
-# 使用方法:
-#       *注意：仅限脚本编写阶段，需要大量调试的时候使用！且只支持Chrome和Firefox ！
-#
-#       # from selenium import webdriver        //用此工具的webdriver替换selenium的webdriver
-#
-#       import connect
-#       webdriver = connect.webdriver()
-#       dr = webdriver.Chrome()
-#       dr.get("https://www.baidu.com")
-#       dr.find_element_by_id('kw').send_keys("selenium自动化测试")
-#       dr.find_element_by_id('su').click()
-#
-#       这个工具只是在编写脚本期间，提供辅助性的调试功能，编写完后请用回selenium的webdriver
-# 
-# 依赖：
-#       selenium
-#       ReuseSelenium.py 放在同一目录下，否则需要按指定目录来import
-#       WebDriverService.py 放在同一目录下，否则需要传入指定的具体位置
-
-
-
 import re
 import os, sys
 import socket
