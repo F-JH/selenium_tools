@@ -13,7 +13,7 @@ selenium_tools包含升两个工具：
 
 使用方法：  
 import Debug  
-Debug.start(driver)       传入你的WebDriver对象,此工具需要获取session_id和command_executor._url值来创建连接  
+Debug.start(driver)       //传入你的WebDriver对象,此工具需要获取session_id和command_executor._url值来创建连接  
 注意：  
 selenium webdriver目前只支持firefox和chrome浏览器，其他浏览器我基本没用过所以不考虑  
 建议你在创建了webdriver.Chrome()【或是webdriver.Firefox()、appium webdriver对象】后就使用此工具  
