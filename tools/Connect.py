@@ -40,17 +40,6 @@ class webdriver(object):
     def PrivateFirefox(self):
         return self.connect_firefox(self.who)
 
-    # def search_port(self, mode):
-    #     # 从默认端口 9725 逐渐+1搜索目标端口
-    #     # mode: 参考 check_port()
-    #     port = self.address[1]
-    #     while True:
-    #         if self.check_port(port) == mode:
-    #             break
-    #         port += 1
-    #     return port
-
-
     def check_port(self, port):
         # 0 无应用占用
         # 1 webdriver service 占用

@@ -146,18 +146,6 @@ class Chrome_Remote(Chrome):
 
         self.capabilities = Options().to_capabilities()
 
-# 清理重复的chromedriver进程
-# def clean(browser):
-#     if browser == 'chrome':
-#         stdout = os.popen('tasklist | findstr chromedriver.exe')
-#     elif browser == 'firefox':
-#         stdout = os.popen('tasklist | findstr geckodriver.exe')
-#     process_list = stdout.readlines()
-#     if len(process_list) > 1:
-#         for j in range(1, len(process_list)):
-#             comp = re.compile(' +')
-#             PID = comp.split(process_list[j])[1]
-#             os.popen('taskkill -PID %s -F'%PID)
 
 if __name__ == '__main__':
     # 连接测试页面
