@@ -2,8 +2,8 @@
     此工具参考了这篇文章提供的方法：https://www.cnblogs.com/jhao/p/8267929.html
 
 selenium_tools包含升两个工具：  
-* Debug
-* Connect  （暂时没想好取什么名）
+* [Debug]### Debug
+* [Connect  （暂时没想好取什么名）]#Connect
 
 ### Debug
   此工具用于打开一个调试窗口，此窗口连接到你的driver对象，可以在这个新命令行窗口内，对正在跑测试脚本的页面进行调试。  
