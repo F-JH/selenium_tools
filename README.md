@@ -14,8 +14,8 @@ selenium_tools包含升两个工具：
 
     import Debug
     from selenium import webdriver
-    driver = webdriver.Chrome()
-    Debug.start(driver)  //传入你的WebDriver对象,此工具需要获取session_id和command_executor._url值来创建连接
+    dr = webdriver.Chrome()
+    Debug.start(dr)  //传入你的WebDriver对象,此工具需要获取session_id和command_executor._url值来创建连接
     
 #### 注意:  
 * selenium webdriver目前只支持firefox和chrome浏览器，其他浏览器我基本没用过所以不考虑  
@@ -23,13 +23,13 @@ selenium_tools包含升两个工具：
 * 需要把 Debug.py 和 ReuseSelenium.py、ReuseAppium.py 三个文件放在同一目录下  
       
 ## Connect
-　此工具相当于Debug工具的反向使用，在本地创建一个socket服务端用于提供session，在服务端打开webdriver，Connect.py用于与服务端通信，获取该测试实例的session信息这样每次跑测试脚本时，就可以重复利用同一个浏览器，而不是重新打开新的浏览器。在编写测试脚本期间，需要大量重复性调试，使用此工具理论上来说应该会节省下很多时间，因为有的电脑打开浏览器真的很慢。经过精确测试，使用该工具重连到浏览器并加载到指定页面只需0.7799181938171387s，而正常打开浏览器需要4.169507741928101s;  
+　此工具相当于Debug工具的反向使用，在本地创建一个socket服务端用于提供session，在服务端打开webdriver，Connect.py用于与服务端通信，获取该测试实例的session信息。这样每次跑测试脚本时，就可以重复利用同一个浏览器，而不是重新打开新的浏览器。在编写测试脚本期间，需要大量重复性调试，使用此工具理论上来说应该会节省下很多时间，因为有的电脑打开浏览器真的很慢。
    
 好吧，看起来是个很鸡肋的东西 (╯°Д°）╯  
 #### 使用方法:  
 
-    import connect
-    webdriver = connect.webdriver()        //用此工具的webdriver替换selenium的webdriver
+    import Connect
+    webdriver = Connect.webdriver()        //用此工具的webdriver替换selenium的webdriver
     dr = webdriver.Chrome()
     dr.get("https://www.baidu.com")
 
@@ -37,3 +37,13 @@ selenium_tools包含升两个工具：
 * 仅限脚本编写阶段，需要大量调试的时候使用！且只支持Chrome和Firefox ！
 * ReuseSelenium.py 放在同一目录下，否则需要按指定目录来import
 * WebDriverService.py 放在同一目录下，否则需要传入指定的具体位置
+
+### 其他功能
+#### Private私有实例
+ 根据调用方的文件名(以下称为a.py)，在服务端创建一个新的浏览器窗口，之后只有a.py可以使用这个窗口。当然a.py还能使用原来的默认窗口。  
+
+  例子:
+  dr1 = webdriver.PrivateChrome()
+  dr2 = webdriver.Chrome()
+  dr1.get("https://www.baidu.com")
+  dr2.get("https://www.baidu.com")
