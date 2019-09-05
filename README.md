@@ -44,7 +44,7 @@ selenium_tools包含升两个工具：
 #### 私有实例:  
 根据调用方的文件名(以下称为a.py)，在服务端创建一个新的浏览器窗口，之后只有a.py可以使用这个窗口。当然a.py还能使用原来的默认窗口，例如:
 
-    dr1 = webdriver.PrivateChrome()
-    dr2 = webdriver.Chrome()
-    dr1.get("https://www.baidu.com")
+    dr1 = webdriver.Chrome()
+    dr2 = webdriver.PrivateChrome()
     dr2.get("https://www.baidu.com")
+    dr1.get("https://www.baidu.com")
