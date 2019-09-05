@@ -84,7 +84,7 @@ class webdriver(object):
                 time.sleep(1)
         if not confirm:
             print('连接超时，请检查WebDriverService与Connect的端口设置是否一致')
-            print('如果检查没问题，在服务端那个黑窗口按几下回车试试，看有没有新的log打印出来，可能cmd窗口又卡了')
+            print('如果检查没问题，可能是cmd窗口又卡了，按一下回车')
             exit(0)
         msg = 'getSession|chrome|%s'%who
         s.send(msg.encode('utf-8'))
@@ -119,7 +119,7 @@ class webdriver(object):
                 time.sleep(1)
         if not confirm:
             print('连接超时，请检查WebDriverService与Connect的端口设置是否一致')
-            print('如果检查没问题，在服务端那个黑窗口按几下回车试试，看有没有新的log打印出来，可能cmd窗口又卡了')
+            print('如果检查没问题，可能是cmd窗口又卡了，按一下回车')
             exit(0)
         msg = 'getSession|firefox|%s'%who
         s.send(msg.encode('utf-8'))
