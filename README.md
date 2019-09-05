@@ -4,7 +4,7 @@ selenium_tools是基于Python的Selenium辅助测试人员调试的工具
   
 selenium_tools包含升两个工具：  
 * [Debug](#debug)
-* [Connect  （暂时没想好取什么名）](#connect)
+* [Connect](#connect) （暂时没想好取什么名）
 
 ## Debug
 ---
