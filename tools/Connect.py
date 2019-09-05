@@ -128,5 +128,5 @@ class webdriver(object):
         session_id = session[0]
         command_executor = session[1]
         options = (self.address, who)
-        driver = RemoteChrome(options=options, service_url=command_executor, session_id=session_id)
+        driver = reweb.Firefox_Remote(options=options, service_url=command_executor, session_id=session_id)
         return driver
