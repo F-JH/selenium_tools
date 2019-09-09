@@ -4,19 +4,19 @@ selenium_tools是基于Python的Selenium辅助测试人员调试的工具
   
 selenium_tools包含升两个工具：  
 * [Debug](#debug)
-* [Connect  （暂时没想好取什么名）](#connect)
+* [Connect](#connect) （暂时没想好取什么名）
 
 ## Debug
 ---
- 此工具用于打开一个调试窗口，此窗口连接到你的driver对象，可以在这个新命令行窗口内，对正在跑测试脚本的页面进行调试。  
+ 此工具用于打开一个调试窗口，此窗口连接到你的driver对象，可以在这个新命令行窗口内，对正在跑测试脚本的页面进行调试。(可用于Appium,使用方法相同)  
 使用场景：  
- 有时候你脚本挂了，你不太了解是哪里出了问题，想对几个关键的地方进行调试，但重新编辑脚本再跑的话，你需要从头开始跑测试内容（重新打开浏览器，登录...），如果你的问题出现在比较后面的地方，那得需要花费较长的时间去验证，非常麻烦。此工具可以在你的脚本挂掉或是正在测试的情况下，接管那个还未关闭的测试页面，并提供名为 "dr" 的WebDriver对象给你调试。  
+ 有时候你脚本挂了，你不太了解是哪里出了问题，只是想修改几个地方的代码进行调试，这时候你要面临着一个问题：我只是想看这几个改动的地方，却要从头开始跑测试内容（重新打开浏览器，登录...）！而如果你的问题出现在比较后面的地方，那就要花费较长的时间去验证，非常麻烦。此工具可以在你的脚本挂掉或是正在测试的情况下，接管那个还未关闭的测试页面，并提供名为 "dr" 的WebDriver对象给你调试。  
 ### 使用方法：  
 
     import Debug
     from selenium import webdriver
     dr = webdriver.Chrome()
-    Debug.start(dr)  //传入你的WebDriver对象,此工具需要获取session_id和command_executor._url值来创建连接
+    Debug.start(dr)  //传入你的WebDriver对象,获取session_id和command_executor._url值来重新连接到已打开的浏览器
     
 ### 注意:  
 * selenium webdriver目前只支持firefox和chrome浏览器，其他浏览器我基本没用过所以不考虑  
