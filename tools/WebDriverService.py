@@ -7,6 +7,16 @@ from selenium import webdriver
 
 DriverList = {'chrome':{}, 'firefox':{}}
 
+def check_alive(browser):
+    # 定期检查实例是否被不可抗力强行关闭
+    while True:
+        for i in DriverList[browser]:
+            try:
+                DriverList[browser][i].title
+            except:
+                DriverList[browser].pop(i)
+        time.sleep(3)
+
 def create_driver(browser, who):
     if browser == 'chrome':
         dr = webdriver.Chrome()
@@ -51,10 +61,6 @@ def handle(sock_links):
                     who = params[2]
                     os.popen('taskkill -PID %d -F'%DriverList[browser][who][1])
                     DriverList[browser].pop(who)
-                elif data == "AllowPort":
-                    i.send(str(AllowPort).encode('utf-8'))
-                    i.shutdown(2)
-                    i.close()
                 else:
                     i.send('0'.encode('utf-8'))
             sock_links.remove(i)
@@ -92,6 +98,12 @@ if __name__ == '__main__':
 
     t = threading.Thread(target=handle, args=[sock_links])
     t.start()
+    
+    check_chrome = threading.Thread(target=check_alive, args=["chrome"])
+    check_firefox = threading.Thread(target=check_alive, args=["firefox"])
+    check_chrome.start()
+    check_firefox.start()
+
     print('Service start at port %d'%address[1])
     while True:
         ss, addr = s.accept()
