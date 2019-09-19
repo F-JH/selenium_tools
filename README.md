@@ -31,7 +31,7 @@ selenium_tools包含两个工具：
 ### 使用方法:  
 
     import Connect
-    webdriver = Connect.webdriver()        //用此工具的webdriver替换selenium的webdriver
+    webdriver = Connect.webdriver()        //使用重写过的webdriver替换selenium的webdriver
     dr = webdriver.Chrome()
     dr.get("https://www.baidu.com")
 
