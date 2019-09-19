@@ -8,23 +8,48 @@ from selenium import webdriver
 
 DriverList = {'chrome':{}, 'firefox':{}}
 
+class Task(threading.Thread):
+    def __init__(self, dr, browser, who):
+        super(Task, self).__init__()
+        self.dr = dr
+        self.browser = browser
+        self.who = who
+        self.result = None
+    def run(self):
+        try:
+            title = self.dr.title
+            self.result = True
+        except:
+            try:
+                self.dr.quit()
+                print('PID:%d' % DriverList[self.browser][self.who][1] + ',' + self.who + '>' + self.browser + ',实例已被强制关闭...')
+                self.result = False
+            except:
+                pass
+    def getResult(self):
+        return self.result
+
 def check_alive(browser):
     # 定期检查实例是否被不可抗力强行关闭
     while True:
         try:
-            cmd_ = 'tasklist | findstr %s' % browser
-            check = os.popen(cmd_)
-            check = check.readlines()
-            alives = []
-            for i in check:
-                r = re.compile(' +').split(i[:-1])
-                alives.append(int(r[1]))
+            threads = []
             for i in DriverList[browser]:
-                if DriverList[browser][i][1] not in alives:
-                    print('PID:%d'%DriverList[browser][i][1] + ',实例已被强制关闭...')
-                    DriverList[browser].pop(i)
-            time.sleep(3)
-        except RuntimeError:
+                t = Task(DriverList[browser][i][0], browser, i)
+                t.start()
+                threads.append(t)
+            for thread in threads:
+                thread.join()
+            for thread in threads:
+                if thread.getResult():
+                    continue
+                DriverList[browser].pop(thread.who)
+            if browser == 'firefox':    # Firefox响应比较快，Chrome慢...
+                time.sleep(3)
+        except RuntimeError:    # 检查期间可能出现DriverList内容的变动
+            time.sleep(0.1)
+            continue
+        except KeyError:
             time.sleep(0.1)
             continue
 
@@ -38,6 +63,7 @@ def create_driver(browser, who):
 
 def check_who(browser, who):
     return who in DriverList[browser]
+
 
 def handle(sock_links):
     while True:
