@@ -1,4 +1,5 @@
 import re
+import traceback
 import os, sys
 import threading
 import socket
@@ -10,12 +11,22 @@ DriverList = {'chrome':{}, 'firefox':{}}
 def check_alive(browser):
     # 定期检查实例是否被不可抗力强行关闭
     while True:
-        for i in DriverList[browser]:
-            try:
-                DriverList[browser][i].title
-            except:
-                DriverList[browser].pop(i)
-        time.sleep(3)
+        try:
+            cmd_ = 'tasklist | findstr %s' % browser
+            check = os.popen(cmd_)
+            check = check.readlines()
+            alives = []
+            for i in check:
+                r = re.compile(' +').split(i[:-1])
+                alives.append(int(r[1]))
+            for i in DriverList[browser]:
+                if DriverList[browser][i][1] not in alives:
+                    print('PID:%d'%DriverList[browser][i][1] + ',实例已被强制关闭...')
+                    DriverList[browser].pop(i)
+            time.sleep(3)
+        except RuntimeError:
+            time.sleep(0.1)
+            continue
 
 def create_driver(browser, who):
     if browser == 'chrome':
