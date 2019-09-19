@@ -96,12 +96,15 @@ def handle(sock_links):
                 elif params[0] == 'quit':
                     browser = params[1]
                     who = params[2]
-                    os.popen('taskkill -PID %d -F'%DriverList[browser][who][1])
-                    DriverList[browser].pop(who)
+                    try:
+                        os.popen('taskkill -PID %d -F'%DriverList[browser][who][1])
+                        DriverList[browser].pop(who)
+                    except KeyError:
+                        pass
                 else:
                     i.send('0'.encode('utf-8'))
             sock_links.remove(i)
-            print('---remove---')
+            # print('---remove---')
 
 
 if __name__ == '__main__':
