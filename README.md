@@ -16,7 +16,7 @@ selenium_tools包含两个工具：
     import Debug
     from selenium import webdriver
     dr = webdriver.Chrome()
-    Debug.start(dr)  //传入你的WebDriver对象,获取session_id和command_executor._url值来重新连接到已打开的浏览器
+    Debug.start(dr)  //传入你的WebDriver,以获取session_id和command_executor._url值来重新连接到已打开的实例
     
 ### 注意:  
 * selenium webdriver目前只支持firefox和chrome浏览器，其他浏览器我基本没用过所以不考虑  
