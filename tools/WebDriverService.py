@@ -97,7 +97,7 @@ def handle(sock_links):
                     browser = params[1]
                     who = params[2]
                     try:
-                        os.popen('taskkill -PID %d -F'%DriverList[browser][who][1])
+                        DriverList[browser][who][0].quit()
                         DriverList[browser].pop(who)
                     except KeyError:
                         pass

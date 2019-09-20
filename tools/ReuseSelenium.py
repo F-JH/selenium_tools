@@ -1,12 +1,14 @@
 import sys
 import os, re
 import socket
+import traceback
 try:
     import http.client as http_client
 except ImportError:
     import httplib as http_client
 import socket
 from selenium import webdriver as Remote
+from selenium.common.exceptions import InvalidArgumentException
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.remote.remote_connection import RemoteConnection
 from selenium.webdriver.remote.errorhandler import ErrorHandler
@@ -57,7 +59,6 @@ class Firefox_Remote(Firefox):
     def quit(self):
         """Quits the driver and close every associated window."""
         try:
-            self.execute(Command.QUIT)
             if self.service:
                 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                 s.connect(self.address)
@@ -65,6 +66,8 @@ class Firefox_Remote(Firefox):
                 s.send(msg.encode('utf-8'))
                 s.shutdown(2)
                 s.close()
+            else:
+                self.execute(Command.QUIT)
         except (http_client.BadStatusLine, socket.error):
             pass
         except Exception:
@@ -119,7 +122,6 @@ class Chrome_Remote(Chrome):
     def quit(self):
         """Quits the driver and close every associated window."""
         try:
-            self.execute(Command.QUIT)
             if self.service:
                 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                 s.connect(self.address)
@@ -127,6 +129,8 @@ class Chrome_Remote(Chrome):
                 s.send(msg.encode('utf-8'))
                 s.shutdown(2)
                 s.close()
+            else:
+                self.execute(Command.QUIT)
         except (http_client.BadStatusLine, socket.error):
             pass
         except Exception:
