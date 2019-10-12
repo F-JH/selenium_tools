@@ -35,7 +35,7 @@ def appium_webdriver(dr):
         command_executor = dr.command_executor._url
         desired_capabilities = str(dr.desired_capabilities)
         
-        cmd = 'start python -i %s %s %s "%s"'%(appium_function, session_id, command_executor, desired_capabilities)
+        cmd = 'start python -i "%s" %s %s "%s"'%(appium_function, session_id, command_executor, desired_capabilities)
         os.system(cmd)
         return 1
     except Exception as err:
