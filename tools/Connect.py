@@ -70,7 +70,7 @@ class webdriver(object):
         if check == 0:
             os.system('start python -i "%s" Chrome "%s"' % (self.server_file, str(self.address)))
         elif check == 2:
-            print('端口被其他应用占用!')
+            print('服务端出现错误，或是端口被其他应用占用!')
             exit(0)
 
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -104,7 +104,7 @@ class webdriver(object):
         if check == 0:
             os.system('start python -i "%s" Firefox "%s"' % (self.server_file, str(self.address)))
         elif check == 2:
-            print('端口被其他应用占用!')
+            print('服务端出现错误，或是端口被其他应用占用!')
             exit(0)
 
 

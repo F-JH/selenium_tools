@@ -25,7 +25,7 @@ def selenium_webdriver(dr):
         print("目前只支持firefox和chrome浏览器，其他浏览器有待研究")
         return
     else:
-        cmd = "start python -i %s %s %s %s %s"%(selenium_funciton, session_id, command_executor, browser, options)
+        cmd = 'start python -i "%s" %s %s %s %s'%(selenium_funciton, session_id, command_executor, browser, options)
         os.system(cmd)
     return 1
         
