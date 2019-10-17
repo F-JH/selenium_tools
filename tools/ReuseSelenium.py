@@ -2,6 +2,7 @@ import sys
 import os, re
 import socket
 import traceback
+import ast
 try:
     import http.client as http_client
 except ImportError:
@@ -157,7 +158,7 @@ if __name__ == '__main__':
     session_id = sys.argv[1]
     command_executor = sys.argv[2]
     browser = sys.argv[3]
-    options = eval(sys.argv[4])
+    options = ast.literal_eval(sys.argv[4])
     if browser == 'firefox':
         dr = Firefox_Remote(options=options, service_url=command_executor, session_id=session_id)
     elif browser == 'chrome':

@@ -1,4 +1,5 @@
 import sys
+import ast
 from appium import webdriver
 from appium.webdriver.webdriver import WebDriver as Remote
 from selenium.webdriver.remote.command import Command as RemoteCommand
@@ -52,7 +53,7 @@ if __name__=="__main__":
     try:
         session_id = sys.argv[1]
         command_executor = sys.argv[2]
-        desired_capabilities = eval(sys.argv[3])
+        desired_capabilities = ast.literal_eval(sys.argv[3])
         
         desired_caps = {}
         desired_caps['platformName'] = desired_capabilities['platformName']

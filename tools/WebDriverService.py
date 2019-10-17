@@ -1,10 +1,12 @@
 import re
+import ast
 import traceback
 import os, sys
 import threading
 import socket
 import time
 from selenium import webdriver
+from selenium.webdriver import ChromeOptions
 
 DriverList = {'chrome':{}, 'firefox':{}}
 
@@ -53,17 +55,34 @@ def check_alive(browser):
             time.sleep(0.1)
             continue
 
-def create_driver(browser, who):
+def create_driver(browser, who, options=None, no_img=False):
+    print('creat new webdriver...')
     if browser == 'chrome':
-        dr = webdriver.Chrome()
-        DriverList['chrome'][who] = [dr, dr.service.process.pid]
+        # 无图模式配置
+        if no_img:
+            chop = ChromeOptions()
+            prefs = {'profile.managed_default_content_settings.images': 2}
+            chop.add_experimental_option('prefs', prefs)
+        else:
+            chop = None
+        dr = webdriver.Chrome(options=options, chrome_options=chop)
+        DriverList['chrome'][who] = [dr, dr.service.process.pid, no_img]
     else:
-        dr = webdriver.Firefox()
-        DriverList['firefox'][who] = [dr, dr.service.process.pid]
+        dr = webdriver.Firefox(options)
+        DriverList['firefox'][who] = [dr, dr.service.process.pid, no_img]
 
-def check_who(browser, who):
-    return who in DriverList[browser]
+def check_who(browser, who, no_img):
+    if who in DriverList[browser]:
+        if DriverList[browser][who][2] == no_img:
+            return True
+    return False
 
+def quit_webdriver(browser, who):
+    try:
+        DriverList[browser][who][0].quit()
+        DriverList[browser].pop(who)
+    except KeyError:
+        pass
 
 def handle(sock_links):
     while True:
@@ -83,12 +102,18 @@ def handle(sock_links):
                     i.shutdown(2)
                     i.close()
                 elif params[0] == "getSession":
-                    browser = data.split('|')[1]
-                    who = data.split('|')[2]
-                    if check_who(browser, who):
+                    browser = params[1]
+                    who = params[2]
+                    # 接收用户定制的options
+                    options = ast.literal_eval(params[3])
+                    #  是否以无图模式打开
+                    no_img = ast.literal_eval(params[4])
+                    if check_who(browser, who, no_img):
                         msg = '["%s", "%s"]' %(DriverList[browser][who][0].session_id, DriverList[browser][who][0].command_executor._url)
                     else:
-                        create_driver(browser, who)
+                        print('以无图模式开启...' if no_img else '以有图模式开启...')
+                        quit_webdriver(browser, who)
+                        create_driver(browser, who, options, no_img)
                         msg = '["%s", "%s"]' %(DriverList[browser][who][0].session_id, DriverList[browser][who][0].command_executor._url)
                     i.send(msg.encode('utf-8'))
                     i.shutdown(2)
@@ -96,11 +121,7 @@ def handle(sock_links):
                 elif params[0] == 'quit':
                     browser = params[1]
                     who = params[2]
-                    try:
-                        DriverList[browser][who][0].quit()
-                        DriverList[browser].pop(who)
-                    except KeyError:
-                        pass
+                    quit_webdriver(browser, who)
                 else:
                     i.send('0'.encode('utf-8'))
             sock_links.remove(i)
@@ -108,7 +129,7 @@ def handle(sock_links):
 
 
 if __name__ == '__main__':
-    address = eval(sys.argv[2])
+    address = ast.literal_eval(sys.argv[1])
 
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     try:

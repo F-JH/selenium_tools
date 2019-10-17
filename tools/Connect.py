@@ -1,4 +1,6 @@
 import re
+import ast
+eval = ast.literal_eval
 import os, sys
 import socket
 import time
@@ -27,11 +29,11 @@ class webdriver(object):
         self.server_file = server
         self.who = traceback.extract_stack()[-2][0].split('/')[-1]
 
-    def Chrome(self):
-        return self.connect_chrome()
+    def Chrome(self, options=None, no_img=False):
+        return self.connect_chrome(options=options, no_img=no_img)
 
-    def Firefox(self):
-        return self.connect_firefox()
+    def Firefox(self, options=None, no_img=False):
+        return self.connect_firefox(options=options, no_img=no_img)
 
     def PrivateChrome(self):
         # 根据调用方文件名(上一层)，开启一个私有窗口
@@ -62,13 +64,13 @@ class webdriver(object):
                 check.shutdown(2)
                 return 2
 
-    def connect_chrome(self, who=None):
+    def connect_chrome(self, who=None, options=None, no_img=False):
         if who == None:
             who = 'default'
         check = self.check_port(self.address[1])
 
         if check == 0:
-            os.system('start python -i "%s" Chrome "%s"' % (self.server_file, str(self.address)))
+            os.system('start python -i "%s" "%s"' % (self.server_file, str(self.address)))
         elif check == 2:
             print('服务端出现错误，或是端口被其他应用占用!')
             exit(0)
@@ -86,7 +88,7 @@ class webdriver(object):
             print('连接超时...')
             print('检查一下服务端窗口是不是卡住了，按几下回车...')
             exit(0)
-        msg = 'getSession|chrome|%s'%who
+        msg = 'getSession|chrome|%s|%s|%s'%(who, str(options), str(no_img))
         s.send(msg.encode('utf-8'))
         session = s.recv(512).decode('utf-8')
         session = eval(session)
@@ -96,13 +98,13 @@ class webdriver(object):
         driver = reweb.Chrome_Remote(options=options, service_url=command_executor, session_id=session_id)
         return driver
 
-    def connect_firefox(self, who=None):
+    def connect_firefox(self, who=None, options=None):
         if who == None:
             who = 'default'
         check = self.check_port(self.address[1])
 
         if check == 0:
-            os.system('start python -i "%s" Firefox "%s"' % (self.server_file, str(self.address)))
+            os.system('start python -i "%s" "%s"' % (self.server_file, str(self.address)))
         elif check == 2:
             print('服务端出现错误，或是端口被其他应用占用!')
             exit(0)
@@ -121,7 +123,7 @@ class webdriver(object):
             print('连接超时，请检查WebDriverService与Connect的端口设置是否一致')
             print('如果检查没问题，可能是cmd窗口又卡了，按一下回车')
             exit(0)
-        msg = 'getSession|firefox|%s'%who
+        msg = 'getSession|firefox|%s|%s'%(who, str(options))
         s.send(msg.encode('utf-8'))
         session = s.recv(512).decode('utf-8')
         session = eval(session)
