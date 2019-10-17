@@ -1,6 +1,6 @@
 # selenium_tools
 此工具参考了这篇文章提供的方法：https://www.cnblogs.com/jhao/p/8267929.html  
-selenium_tools是基于Python的Selenium辅助测试人员调试的工具  
+selenium_tools支持Python平台上的Selenium，用于辅助测试人员调试的一些工具  
   
 selenium_tools包含两个工具：  
 * [Debug](#debug)
