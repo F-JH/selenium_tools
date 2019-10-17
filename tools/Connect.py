@@ -98,7 +98,7 @@ class webdriver(object):
         driver = reweb.Chrome_Remote(options=options, service_url=command_executor, session_id=session_id)
         return driver
 
-    def connect_firefox(self, who=None, options=None):
+    def connect_firefox(self, who=None, options=None, no_img=False):
         if who == None:
             who = 'default'
         check = self.check_port(self.address[1])
@@ -123,7 +123,7 @@ class webdriver(object):
             print('连接超时，请检查WebDriverService与Connect的端口设置是否一致')
             print('如果检查没问题，可能是cmd窗口又卡了，按一下回车')
             exit(0)
-        msg = 'getSession|firefox|%s|%s'%(who, str(options))
+        msg = 'getSession|firefox|%s|%s|%s'%(who, str(options), str(no_img))
         s.send(msg.encode('utf-8'))
         session = s.recv(512).decode('utf-8')
         session = eval(session)

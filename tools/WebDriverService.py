@@ -7,6 +7,7 @@ import socket
 import time
 from selenium import webdriver
 from selenium.webdriver import ChromeOptions
+from selenium.webdriver import FirefoxProfile
 
 DriverList = {'chrome':{}, 'firefox':{}}
 
@@ -68,7 +69,14 @@ def create_driver(browser, who, options=None, no_img=False):
         dr = webdriver.Chrome(options=options, chrome_options=chop)
         DriverList['chrome'][who] = [dr, dr.service.process.pid, no_img]
     else:
-        dr = webdriver.Firefox(options)
+        # 无图模式配置
+        if no_img:
+            ffile = FirefoxProfile()
+            ffile.set_preference('browser.migration.version', 9001)
+            ffile.set_preference('permissions.default.image', 2)
+        else:
+            ffile = None
+        dr = webdriver.Firefox(firefox_profile=ffile, options=options)
         DriverList['firefox'][who] = [dr, dr.service.process.pid, no_img]
 
 def check_who(browser, who, no_img):
