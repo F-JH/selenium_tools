@@ -4,7 +4,6 @@ from appium import webdriver
 from appium.webdriver.webdriver import WebDriver as Remote
 from selenium.webdriver.remote.command import Command as RemoteCommand
 
-a = "test"
 
 class wd(Remote):
     def __init__(self, command_executor, session_id, desired_caps, capabilities):
