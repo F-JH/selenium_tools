@@ -16,7 +16,7 @@ selenium_tools包含两个工具：
     import Debug
     from selenium import webdriver
     dr = webdriver.Chrome()
-    Debug.start(dr)  //传入你的WebDriver,以获取session_id和command_executor._url值来重新连接到已打开的实例
+    Debug.start(dr)  # 传入你的WebDriver,以获取session_id和command_executor._url值来重新连接到已打开的实例
     
 ### 注意:  
 * selenium webdriver目前只支持firefox和chrome浏览器，其他浏览器我基本没用过所以不考虑  
@@ -31,9 +31,11 @@ selenium_tools包含两个工具：
 ### 使用方法:  
 
     import Connect
-    webdriver = Connect.webdriver()        //使用重写过的webdriver替换selenium的webdriver
+    webdriver = Connect.webdriver()        # 使用重写过的webdriver替换selenium的webdriver
     dr = webdriver.Chrome()
     dr.get("https://www.baidu.com")
+    # 开启无图模式，加载网页时不加载图片，让测试脚本跑的更快! 当然你有需求要看图片就别开，默认关闭
+    dr1 = webdriver.Chrome(no_img=True)
 
 ### 注意:
 * 仅限脚本编写阶段，需要大量调试的时候使用！且只支持Chrome和Firefox ！
@@ -49,6 +51,8 @@ a.py:
     dr2 = webdriver.PrivateChrome()     # 使用a.py窗口
     dr2.get("https://www.baidu.com")
     dr1.get("https://www.baidu.com")
+    # 无图模式
+    dr2 = webdriver.PrivateChrome(no_img=True)
 
 b.py:
 
