@@ -35,12 +35,12 @@ class webdriver(object):
     def Firefox(self, options=None, no_img=False):
         return self.connect_firefox(options=options, no_img=no_img)
 
-    def PrivateChrome(self):
+    def PrivateChrome(self, options=None, no_img=False):
         # 根据调用方文件名(上一层)，开启一个私有窗口
-        return self.connect_chrome(self.who)
+        return self.connect_chrome(self.who, options=options, no_img=no_img)
 
-    def PrivateFirefox(self):
-        return self.connect_firefox(self.who)
+    def PrivateFirefox(self, options=None, no_img=False):
+        return self.connect_firefox(self.who, options=options, no_img=no_img)
 
     def check_port(self, port):
         # 0 无应用占用
