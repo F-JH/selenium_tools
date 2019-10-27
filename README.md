@@ -13,6 +13,7 @@ selenium_tools包含两个工具：
  有时候你脚本挂了，你不太清楚是哪里出了问题，只是想修改几个地方的代码进行调试，这时候你要面临着一个问题：我只是想看这几个改动的地方，却要从头开始跑测试内容（重新打开浏览器，登录...）！而如果你的问题出现在比较后面的地方，那就要花费较长的时间去验证，非常麻烦。此工具可以用在你的脚本挂掉或是正在测试的情况下，连接到那个还未关闭的测试页面，并开启一个命令行窗口以提供调试，你可以在此窗口下用dr(此窗口下的WebDriver对象)来控制你的测试页面！
 ### 使用方法：  
 
+    # 将Debug.py、ReuseSelenium.py、ReuseAppium.py放在与你的脚本文件同一目录，或者自己想办法导入Debug，别说这个也不会啊
     import Debug
     from selenium import webdriver
     dr = webdriver.Chrome()
@@ -30,6 +31,7 @@ selenium_tools包含两个工具：
 好吧，看起来是个很鸡肋的东西 (╯°Д°）╯  
 ### 使用方法:  
 
+    # 将Connect.py、ReuseSelenium.py和WebDriverService.py放在与你脚本文件同一目录下，或者自己想办法导入Connect，别说这个也不会啊
     import Connect
     webdriver = Connect.webdriver()        # 使用重写过的webdriver替换selenium的webdriver
     dr = webdriver.Chrome()
@@ -39,8 +41,8 @@ selenium_tools包含两个工具：
 
 ### 注意:
 * 仅限脚本编写阶段，需要大量调试的时候使用！且只支持Chrome和Firefox ！
-* ReuseSelenium.py 放在同一目录下，否则需要按指定目录来import
-* WebDriverService.py 放在同一目录下，否则需要传入指定的具体位置
+* ReuseSelenium.py 放在与Connect.py一目录下，否则需要按指定目录来import
+* WebDriverService.py 放在与Connect.py同一目录下，否则需要传入指定的具体位置
 * <font color=#F00>由于是服务端开启的WebDriver，而目前想不到办法在进程通讯间传递对象，所以一些骚操作(给webdriver传递一些个人配置)无法完成，只能用用普通的操作。也正如前面所说的，这是个有点鸡肋的东西，只能增加一些逼格。</font>
 
 ### 其他功能
