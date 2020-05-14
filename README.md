@@ -17,13 +17,13 @@ selenium_tools包含两个工具：
     
     
     import Debug
-    from selenium import webdriver
+    from selenium import webdrive
     dr = webdriver.Chrome()
     Debug.start(dr)  # 传入你的WebDriver,以获取session_id和command_executor._url值来重新连接到已打开的实例
     
 ### 注意:  
-* selenium webdriver目前只支持firefox和chrome浏览器，其他浏览器我基本用不到所以不考虑，各位可以结合大佬们的文章自行研究  
-* 建议你在创建了webdriver.Chrome()【或是webdriver.Firefox()、appium webdriver对象】后就使用此工具  
+* 此工具目前只支持firefox和chrome浏览器，其他浏览器我基本用不到所以不考虑，各位可以结合大佬们的文章自行研究  
+* 建议你在创建了webdriver.Chrome()【或是webdriver.Firefox()、appium webdriver对象】后就使用此工具，因为你不确定你的代码啥时候会挂掉  
 * 需要把 Debug.py 和 ReuseSelenium.py、ReuseAppium.py 三个文件放在同一目录下  
       
 ## WebDriverManager
@@ -31,7 +31,7 @@ selenium_tools包含两个工具：
 　此工具相当于Debug工具的反向使用，在本地创建一个服务端用于管理webdriver，并提供sessionid，Connect.py用于与服务端通信，获取该测试实例的session信息。这样每次跑测试脚本时，就可以重复利用同一个浏览器，而不是重新打开新的浏览器。在编写测试脚本期间，需要大量重复性调试，使用此工具理论上来说应该会节省下很多时间，因为有的电脑打开浏览器真的很慢。另外一个好处就是，如果你在测试期间进程挂了，那么直接关掉浏览器的话其实浏览器进程并没有被杀死，用此工具来管理测试浏览器，他可以自动检查哪些浏览器进程是无用的并杀死这些进程！
 ### 使用方法:  
 
-    # 将Connect.py、ReuseSelenium.py和WebDriverService.py与你的脚本文件放在同一目录下，或者自己想办法导入Connect，别说这个也不会啊
+    # 将Connect.py、ReuseSelenium.py和WebDriverService.py与你的自动化用例放在同一目录下，并在代码中导入
     
     
     import Connect
