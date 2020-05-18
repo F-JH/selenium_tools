@@ -20,7 +20,7 @@ selenium_tools包含两个工具：
     import Debug
     from selenium import webdrive
     dr = webdriver.Chrome()
-    Debug.start(dr)  # 传入你的WebDriver,以获取session_id和command_executor._url值来重新连接到已打开的实例
+    Debug.start(dr)  # 传入你的WebDriver实例，这时候会打开一个cmd窗口，可以用它来操控浏览器
     
 ### 注意:  
 * 此工具目前只支持firefox和chrome浏览器，其他浏览器我基本用不到所以不考虑，各位可以结合大佬们的文章自行研究  
