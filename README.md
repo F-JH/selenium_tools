@@ -14,7 +14,7 @@ selenium_tools包含两个工具：
  这时候你就需要此工具了，它可以用在你的脚本挂掉或是正在测试的情况下，连接到那个还未关闭的测试页面，并开启一个命令行窗口以提供调试，你可以在此窗口下用dr(此窗口下的WebDriver对象)来控制你的测试页面！
 ### 使用方法：  
 
-    # 将Debug.py、ReuseSelenium.py、ReuseAppium.py与你的自动化用例放在同一目录下，并在代码中导入
+    # 将tools目录下，Debug.py、ReuseSelenium.py、ReuseAppium.py与你的自动化用例放在同一目录下，并在代码中导入
     
     
     import Debug
@@ -32,7 +32,7 @@ selenium_tools包含两个工具：
 　此工具相当于Debug工具的反向使用，在本地创建一个服务端用于管理webdriver，并提供sessionid，Connect.py用于与服务端通信，获取该测试实例的session信息。这样每次跑测试脚本时，就可以重复利用同一个浏览器，而不是重新打开新的浏览器。在编写测试脚本期间，需要大量重复性调试，使用此工具理论上来说应该会节省下很多时间，因为有的电脑打开浏览器真的很慢。另外一个好处就是，如果你在测试期间进程挂了，那么直接关掉浏览器的话其实浏览器进程并没有被杀死，用此工具来管理测试浏览器，他可以自动检查哪些浏览器进程是无用的并杀死这些进程！
 ### 使用方法:  
 
-    # 将Connect.py、ReuseSelenium.py和WebDriverService.py与你的自动化用例放在同一目录下，并在代码中导入
+    # 将tools目录下Connect.py、ReuseSelenium.py和WebDriverService.py与你的自动化用例放在同一目录下，并在代码中导入
     
     
     import Connect
