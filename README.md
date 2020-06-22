@@ -68,6 +68,6 @@ b.py:
     dr1.get("https://www.baidu.com")
 
 
-### 示例
+### 动图演示
 
 有空再说...
