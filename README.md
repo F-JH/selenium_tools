@@ -22,6 +22,9 @@ selenium_tools包含两个工具：
     dr = webdriver.Chrome()
     Debug.start(dr)  # 传入你的WebDriver实例，这时候会打开一个cmd窗口，可以用它来操控浏览器
     
+    
+![image](https://hk.xlfjh.ml/debug.gif)
+    
 ### 注意:  
 * 此工具目前只支持firefox和chrome浏览器，其他浏览器我基本用不到所以不考虑，各位可以结合大佬们的文章自行研究  
 * 建议你在创建了webdriver.Chrome()【或是webdriver.Firefox()、appium webdriver对象】后就使用此工具，因为你不确定你的代码啥时候会挂掉  
