@@ -1,5 +1,10 @@
 import os
+import platform
 import traceback
+isMac = False
+if "Darwin" in platform.platform():
+    import appscript
+    isMac = True
 
 # ReuseSelenium.py、ReuseAppium.py 路径
 selenium_funciton = os.path.join(os.path.dirname(__file__), "ReuseSelenium.py")
@@ -26,6 +31,8 @@ def selenium_webdriver(dr):
         return
     else:
         cmd = 'start python -i "%s" %s %s %s %s'%(selenium_funciton, session_id, command_executor, browser, options)
+        if isMac:
+            appscript.app("Terminal").do_script(cmd)
         os.system(cmd)
     return 1
         

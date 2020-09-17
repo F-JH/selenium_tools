@@ -12,8 +12,12 @@ try:
     import http.client as http_client
 except ImportError:
     import httplib as http_client
-
+isMac = False
 from selenium.webdriver.remote.command import Command
+import platform
+if "Darwin" in platform.platform():
+    import appscript
+    isMac = True
 
 # config
 address = ('127.0.0.1', 9725)
@@ -70,7 +74,11 @@ class webdriver(object):
         check = self.check_port(self.address[1])
 
         if check == 0:
-            os.system('start python -i "%s" "%s"' % (self.server_file, str(self.address)))
+            cmd = 'start python -i "%s" "%s"' % (self.server_file, str(self.address))
+            if isMac:
+                appscript.app("Terminal").do_script(cmd)
+            else:
+                os.system(cmd)
         elif check == 2:
             print('服务端出现错误，或是端口被其他应用占用!')
             exit(0)
@@ -104,7 +112,11 @@ class webdriver(object):
         check = self.check_port(self.address[1])
 
         if check == 0:
-            os.system('start python -i "%s" "%s"' % (self.server_file, str(self.address)))
+            cmd = 'start python -i "%s" "%s"' % (self.server_file, str(self.address))
+            if isMac:
+                appscript.app("Terminal").do_script(cmd)
+            else:
+                os.system(cmd)
         elif check == 2:
             print('服务端出现错误，或是端口被其他应用占用!')
             exit(0)

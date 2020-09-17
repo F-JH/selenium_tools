@@ -5,9 +5,14 @@ import os, sys
 import threading
 import socket
 import time
+import platform
 from selenium import webdriver
 from selenium.webdriver import ChromeOptions
 from selenium.webdriver import FirefoxProfile
+isMac = False
+if "Darwin" in platform.platform():
+    import appscript
+    isMac = True
 
 DriverList = {'chrome':{}, 'firefox':{}}
 
@@ -148,8 +153,9 @@ if __name__ == '__main__':
     sock_links = []
     
     #清理可能残留的driver进程
-    os.popen('taskkill /F /IM chromedriver.exe')
-    os.popen('taskkill /F /IM geckodriver.exe')
+    if not isMac:
+        os.popen('taskkill /F /IM chromedriver.exe')
+        os.popen('taskkill /F /IM geckodriver.exe')
 
     attention = \
     '''
