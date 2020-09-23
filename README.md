@@ -29,6 +29,8 @@ selenium_tools包含两个工具：
 * 此工具目前只支持firefox和chrome浏览器，其他浏览器我基本用不到所以不考虑，各位可以结合大佬们的文章自行研究  
 * 建议你在创建了webdriver.Chrome()【或是webdriver.Firefox()、appium webdriver对象】后就使用此工具，因为你不确定你的代码啥时候会挂掉  
 * 需要把 Debug.py 和 ReuseSelenium.py、ReuseAppium.py 三个文件放在同一目录下  
+* 特别注意：确保你电脑上只有一个python，因为启动新窗口是通过命令方式启动的，所以如果有多个环境的话，请自行到Debug.py（第33行和第46行）、Connect.py（第77行和第115行）中修改启动命令   
+* 其他由于中文的注释而导致的编码问题请自行解决
       
 ## WebDriverManager
 ---
