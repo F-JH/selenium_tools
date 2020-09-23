@@ -3,7 +3,7 @@ import os
 import platform
 import traceback
 isMac = False
-if "Darwin" in platform.platform():
+if "Windows" not in platform.system():
     import appscript
     isMac = True
 

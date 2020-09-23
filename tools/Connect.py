@@ -16,7 +16,7 @@ except ImportError:
 isMac = False
 from selenium.webdriver.remote.command import Command
 import platform
-if "Darwin" in platform.platform():
+if "Windows" not in platform.system():
     import appscript
     isMac = True
 
