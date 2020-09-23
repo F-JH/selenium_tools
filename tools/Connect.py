@@ -1,3 +1,4 @@
+#coding=utf-8
 import re
 import ast
 eval = ast.literal_eval
@@ -112,11 +113,11 @@ class webdriver(object):
         check = self.check_port(self.address[1])
 
         if check == 0:
-            cmd = 'start python -i "%s" "%s"' % (self.server_file, str(self.address))
+            cmd = 'python -i "%s" "%s"' % (self.server_file, str(self.address))
             if isMac:
                 appscript.app("Terminal").do_script(cmd)
             else:
-                os.system(cmd)
+                os.system("start "+cmd)
         elif check == 2:
             print('服务端出现错误，或是端口被其他应用占用!')
             exit(0)

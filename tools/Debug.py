@@ -1,3 +1,4 @@
+#coding=utf-8
 import os
 import platform
 import traceback
@@ -30,11 +31,11 @@ def selenium_webdriver(dr):
         print("目前只支持firefox和chrome浏览器，其他浏览器有待研究")
         return
     else:
-        cmd = 'start python -i "%s" %s %s %s %s'%(selenium_funciton, session_id, command_executor, browser, options)
+        cmd = 'python -i "%s" %s %s %s %s'%(selenium_funciton, session_id, command_executor, browser, options)
         if isMac:
             appscript.app("Terminal").do_script(cmd)
         else:
-            os.system(cmd)
+            os.system("start "+cmd)
     return 1
         
 def appium_webdriver(dr):
@@ -47,7 +48,7 @@ def appium_webdriver(dr):
         if isMac:
             appscript.app("Terminal").do_script(cmd)
         else:
-            os.system(cmd)
+            os.system("start "+cmd)
         return 1
     except Exception as err:
         traceback.print_exc()
