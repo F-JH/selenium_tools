@@ -1,6 +1,8 @@
 # selenium_tools
 此工具参考了这篇文章提供的方法：https://www.cnblogs.com/jhao/p/8267929.html  
 selenium_tools支持使用在Python编写的Selenium自动化测试脚本上，它可以提供给测试人员以一种更方面的方式来调试测试用例  
+（现已支持mac电脑，需要手动pip安装appscript库）   
+
   
 selenium_tools包含两个工具：  
 * [Debug](#debug)
