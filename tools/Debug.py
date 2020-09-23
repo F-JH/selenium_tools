@@ -33,7 +33,8 @@ def selenium_webdriver(dr):
         cmd = 'start python -i "%s" %s %s %s %s'%(selenium_funciton, session_id, command_executor, browser, options)
         if isMac:
             appscript.app("Terminal").do_script(cmd)
-        os.system(cmd)
+        else:
+            os.system(cmd)
     return 1
         
 def appium_webdriver(dr):
@@ -43,7 +44,10 @@ def appium_webdriver(dr):
         desired_capabilities = str(dr.desired_capabilities)
         
         cmd = 'start python -i "%s" %s %s "%s"'%(appium_function, session_id, command_executor, desired_capabilities)
-        os.system(cmd)
+        if isMac:
+            appscript.app("Terminal").do_script(cmd)
+        else:
+            os.system(cmd)
         return 1
     except Exception as err:
         traceback.print_exc()
